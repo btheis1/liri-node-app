@@ -31,7 +31,19 @@ function concert() {
    })
 }
 
+function spotifySong() {
+    var song = process.argv.slice(3).join(" ");
 
+    spotify.search({type: 'track', query: song}, function(err, data) {
+        if (err) {
+            return console.log("Error occured: " + err);
+        } 
+        console.log(`Artist: ${data.tracks.items[0].artists[0].name}`);
+        console.log(`Song Name: ${data.tracks.items[0].name}`);
+        console.log(`Preview link: ${data.tracks.items[3].preview_url}`);
+        console.log(`Album: ${data.tracks.items[0].album.name}`); 
+    });
+}
 
 
 // Switch/Case for command
@@ -40,7 +52,7 @@ switch(command) {
         concert();
         break;
     case "spotify-this-song":
-        console.log("spotify-this-song");
+        spotifySong();
         break;
     case "movie-this":
         console.log("movie-this");
